@@ -88,22 +88,23 @@
     },
     "routing": {
       "config": {
-        "routerClass": "sap.m.routing.Router",
-        "viewType": "XML",
+        "routerClass": "sap.f.routing.Router",
+        "type": "View",
+				"viewType": "XML",
+        "path": "app.view",
+        "controlId": "layout",
+				"controlAggregation": "beginColumnPages",
         "async": true,
-        "viewPath": "app.view",
-        "controlAggregation": "pages",
-        "controlId": "app",
-        "clearControlAggregation": false
+				"bypassed": {
+					"target": "notFound"
+				}
       },
       "routes": [
         {
-          "name": "RouteMaster",
-          "pattern": ":?query:",
-          "target": [
-            "TargetMaster"
-          ]
-        },
+					"pattern": "",
+					"name": "master",
+					"target": "master"
+				},
         {
 					"pattern": "Authors/{objectId}/:?query:",
 					"name": "object",
@@ -114,14 +115,12 @@
 				}
       ],
       "targets": {
-        "TargetMaster": {
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "Master",
-          "viewName": "Master"
-        },
-        "object": {
+        "master": {
+					"name": "Master",
+					"level": 1,
+					"id": "master"
+				},
+				"object": {
 					"name": "Detail",
 					"id": "detail",
 					"level": 1,
