@@ -1,5 +1,6 @@
 using my.validexample as my from '../db/cap-valid-data-model';
 
-service CatalogService {
-    entity Foo as projection on my.Foo;
+service ValidService {
+    entity Books as projection on my.Books;
+    entity Authors as projection on my.Authors;
 }

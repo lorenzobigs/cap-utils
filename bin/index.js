@@ -12,7 +12,7 @@ let start = async function() {
     await dirs.create(process.cwd());
     await files.create(process.cwd());    
     console.log('\n');
-    console.log('Great! Use cds watch and validator-test.http to explore the usage of SAP CAP validators');
+    console.log('Great! Use cds watch and test.http to explore the usage of SAP CAP validators');
 }
 
 start();
