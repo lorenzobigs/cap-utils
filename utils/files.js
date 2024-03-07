@@ -1,82 +1,87 @@
 const { create } = require('domain');
 const fs = require('fs');
 const path = require('path');
+const constants = require('./constants');
 
 let writedatamodel = function (target) {
     return new Promise((resolve, reject) => {
-        fs.readFile(path.join(__dirname,'..','db','cap-valid-data-model.cds'), 'utf-8', (err, data) => {
-            fs.writeFile(path.join(target, 'db','cap-valid-data-model.cds'), data, (err) =>{
-                if(err) console.error(err);
-                console.log('/db/cap-valid-data-model.cds created')
+        fs.readFile(path.join(__dirname, '..', constants.DB_FOLDER, constants.DB_CDS), 'utf-8', (err, data) => {
+            fs.writeFile(path.join(target, constants.DB_FOLDER, constants.DB_CDS), data, (err) => {
+                if (err) console.error(err);
+                console.log(`/${constants.DB_FOLDER}/${constants.DB_CDS} created`)
                 resolve();
             })
         })
     })
-   
+
 }
 
 let writedatabooks = function (target) {
     return new Promise((resolve, reject) => {
-    fs.readFile(path.join(__dirname,'..','db','data','my.validexample-Books.csv'), 'utf-8', (err, data) => {
-        fs.writeFile(path.join(target, 'db','data','my.validexample-Books.csv'), data, (err) =>{
-            if(err) console.error(err);
-            console.log('/db/data/my.validexample-Books.csv created')
-            resolve();
+        fs.readFile(path.join(__dirname, '..', constants.DB_FOLDER, constants.DB_DATA_FOLDER, constants.BOOKS_CSV), 'utf-8', (err, data) => {
+            fs.writeFile(path.join(target, constants.DB_FOLDER, constants.DB_DATA_FOLDER, constants.BOOKS_CSV), data, (err) => {
+                if (err) console.error(err);
+                console.log(`/${constants.DB_FOLDER}/${constants.DB_DATA_FOLDER}/${constants.BOOKS_CSV} created`)
+                resolve();
+            })
         })
-    })
     })
 }
 
 let writedataauthors = function (target) {
     return new Promise((resolve, reject) => {
-    fs.readFile(path.join(__dirname,'..','db','data','my.validexample-Authors.csv'), 'utf-8', (err, data) => {
-        fs.writeFile(path.join(target, 'db','data','my.validexample-Authors.csv'), data, (err) =>{
-            if(err) console.error(err);
-            console.log('/db/data/my.validexample-Authors.csv created')
-            resolve();
+        fs.readFile(path.join(__dirname, '..', constants.DB_FOLDER, constants.DB_DATA_FOLDER, constants.AUTHORS_CSV), 'utf-8', (err, data) => {
+            fs.writeFile(path.join(target, constants.DB_FOLDER, constants.DB_DATA_FOLDER, constants.AUTHORS_CSV), data, (err) => {
+                if (err) console.error(err);
+                console.log(`/${constants.DB_FOLDER}/${constants.DB_DATA_FOLDER}/${constants.AUTHORS_CSV} created`)
+                resolve();
+            })
         })
-    })
     })
 }
 
 let writesrv = function (target) {
     return new Promise((resolve, reject) => {
-        fs.readFile(path.join(__dirname,'..','srv','valid-service.cds'), 'utf-8', (err, data) => {
-            fs.writeFile(path.join(target, 'srv','valid-service.cds'), data, (err) =>{
-                if(err) console.error(err);
-                console.log('/srv/valid-service.cds created')
+        fs.readFile(path.join(__dirname, '..', constants.SRV_FOLDER, constants.SERVICE_CDS), 'utf-8', (err, data) => {
+            fs.writeFile(path.join(target, constants.SRV_FOLDER, constants.SERVICE_CDS), data, (err) => {
+                if (err) console.error(err);
+                console.log(`/${constants.SRV_FOLDER}/${constants.SERVICE_CDS} created`)
                 resolve();
             })
         })
     })
-    
+
 }
 
 let writehttptest = function (target) {
     return new Promise((resolve, reject) => {
-        fs.readFile(path.join(__dirname,'..','test.http'), 'utf-8', (err, data) => {
-            fs.writeFile(path.join(target, 'test.http'), data, (err) =>{
-                if(err) console.error(err);
-                console.log('/test.http created')
+        fs.readFile(path.join(__dirname, '..', constants.HTTP_TEST_FILE), 'utf-8', (err, data) => {
+            fs.writeFile(path.join(target, constants.HTTP_TEST_FILE), data, (err) => {
+                if (err) console.error(err);
+                console.log(`/${constants.HTTP_TEST_FILE} created`)
                 resolve();
             })
         })
     })
-   
+
 }
 
-let createFiles = async function(target){
-    return new Promise(async (resolve,reject) => {
-        await writedatamodel(target);
-        await writedatabooks(target);
-        await writedataauthors(target);
-        await writesrv(target);
-        await writehttptest(target);
-        resolve();
+let createFiles = async function (target) {
+    return new Promise(async (resolve, reject) => {
+        Promise.all([
+            writedatamodel(target),
+            writedatabooks(target),
+            writedataauthors(target),
+            writesrv(target),
+            writehttptest(target)
+        ]).then(() => {
+            resolve()
+        });
+        
     })
-    
+
 }
 
 module.exports = {
-    create : createFiles
+    create: createFiles
 }
