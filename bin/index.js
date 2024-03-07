@@ -1,18 +1,27 @@
 #! /usr/bin/env node
 const fs= require('fs');
 const path = require('path');
-const test = require('../utils/test');
-const dirs = require('../utils/directory');
+const dirs = require('../utils/directories');
 const files = require('../utils/files');
+const constants = require('../utils/constants');
 const banner = require('node-banner');
+
+let printEndMessage = function(){
+    console.log('\n');
+    console.log(`Great! Use cds watch and ${constants.HTTP_TEST_FILE} ${constants.END_MESSAGE}`);
+}
 
 let start = async function() {
     await banner('lorenzobigs','Starting process...','black');
     console.log('\n');
-    await dirs.create(process.cwd());
-    await files.create(process.cwd());    
-    console.log('\n');
-    console.log('Great! Use cds watch and test.http to explore the usage of SAP CAP validators');
+    Promise.all([
+        dirs.create(process.cwd()),
+        files.create(process.cwd())
+    ]).then( () => {
+        printEndMessage();
+    })
+   
+   
 }
 
 start();
