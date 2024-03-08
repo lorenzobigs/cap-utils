@@ -13,7 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:basic",
       "version": "1.12.5",
-      "toolsId": "6f47c42b-d234-4d79-ab9c-2879eda9d39c"
+      "toolsId": "840e9319-c963-478d-8955-302dad9b3052"
     },
     "dataSources": {
       "mainService": {
@@ -22,6 +22,19 @@
         "settings": {
           "annotations": [],
           "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "ui5example-display": {
+          "semanticObject": "ui5example",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
       }
     }
@@ -88,44 +101,56 @@
     },
     "routing": {
       "config": {
-        "routerClass": "sap.f.routing.Router",
-        "type": "View",
-				"viewType": "XML",
-        "path": "app.view",
-        "controlId": "layout",
-				"controlAggregation": "beginColumnPages",
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
         "async": true,
-				"bypassed": {
-					"target": "notFound"
-				}
+        "viewPath": "app.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false,
+        "bypassed": {
+          "target": "notFound"
+       }
       },
+  
       "routes": [
         {
-					"pattern": "",
-					"name": "master",
-					"target": "master"
-				},
+          "name": "RouteMaster",
+          "pattern": ":?query:",
+          "target": [
+            "home"
+          ]
+        },
         {
-					"pattern": "Authors/{objectId}/:?query:",
-					"name": "object",
-					"target": [
-						"master",
-						"object"
-					]
-				}
+          "name": "author",
+          "pattern": "author/{authorId}:?query:",
+          "target": [
+            "author"
+          ]
+        }
       ],
       "targets": {
-        "master": {
-					"name": "Master",
-					"level": 1,
-					"id": "master"
-				},
-				"object": {
-					"name": "Detail",
-					"id": "detail",
-					"level": 1,
-					"controlAggregation": "midColumnPages"
-				}
+        "home": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Master",
+          "viewName": "Master"
+        },
+        "notFound": {
+          "viewType": "XML",
+          "transition": "show",
+          "clearControlAggregation": false,
+          "viewId": "NotFound",
+          "viewName": "NotFound"
+        },
+        "author": {
+          "viewType": "XML",
+          "transition": "show",
+          "clearControlAggregation": false,
+          "viewId": "Author",
+          "viewName": "Author"
+        }
       }
     },
     "rootView": {
