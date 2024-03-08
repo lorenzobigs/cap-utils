@@ -22,6 +22,8 @@
   "author": "lorenzobigs",
   "license": "ISC",
   "dependencies": {
-    "node-banner": "^1.4.0"
+    "fs-extra": "^11.2.0",
+    "node-banner": "^1.4.0",
+    "yargs": "^17.7.2"
   }
 }

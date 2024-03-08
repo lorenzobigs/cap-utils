@@ -1,36 +1,62 @@
 #! /usr/bin/env node
-const fs= require('fs');
-const path = require('path');
-const dirs = require('../utils/directories');
-const files = require('../utils/files');
-const constants = require('../utils/constants');
-const banner = require('node-banner');
+const fs = require("fs");
+const path = require("path");
+const dirs = require("../utils/directories");
+const files = require("../utils/files");
+const ui5 = require("../utils/ui5");
+const constants = require("../utils/constants");
+const banner = require("node-banner");
+const yargs = require("yargs");
 
-let printEndMessage = function(){
-    console.log('\n');
-    console.log(`Great! Use cds watch and ${constants.HTTP_TEST_FILE} ${constants.END_MESSAGE}`);
-}
+let target = process.cwd();
 
-let start = async function() {
-    await banner('lorenzobigs','Starting process...','black');
-    console.log('\n');
-    Promise.all([
-        dirs.create(process.cwd()),
-        files.create(process.cwd())
-    ]).then( () => {
-        printEndMessage();
-    })
-   
-   
-}
+let promises = [];
+
+const _availableModules = ["ui5", "profiling"];
+let _additionalModules = [];
+
+let printEndMessage = function () {
+  console.log("\n");
+  console.log(
+    `Great! Use cds watch and ${constants.HTTP_TEST_FILE} ${constants.END_MESSAGE}`
+  );
+};
+
+let addModules = function () {
+  return new Promise((resolve, reject) => {
+    let add_args = yargs.argv.add;
+
+    if (add_args) {
+      add_args.split(',').forEach((el) => {
+        if (!_availableModules.includes(el)) {
+          console.log(`WARNING! Module ${el} is not available`);
+        } else {
+            _additionalModules.push(el);
+        }
+      });
+    } else {
+    }
+
+    resolve();
+  });
+};
+let start = async function () {
+  await banner("lorenzobigs", "Starting process...", "black");
+  console.log("\n");
+
+  await addModules();
+
+  Promise.all([
+    dirs.create(target),
+    files.create(target),
+    _additionalModules.includes('ui5') ? ui5.create(target) : Promise.resolve(null)
+  ]).then(() => {
+    printEndMessage();
+  });
+};
 
 start();
 
 module.exports = {
-    start : start
-}
-
-
-
-
-
+  start: start,
+};
