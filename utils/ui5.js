@@ -1,18 +1,23 @@
 const fs = require('fs-extra');
+const path = require('path');
+const constants = require('./constants');
 
 let createApp = async function (target) {
     return new Promise(async (resolve, reject) => {
         try {
-            // Verifica se la cartella di destinazione esiste, altrimenti creala
-            await fs.ensureDir(target);
+            console.log(`Copying ${constants.APP_FOLDER} folder and its content...`);
+
+            await fs.ensureDir(path.join(target,constants.APP_FOLDER));
+
+            await fs.copy(
+                            path.join(__dirname, '..',constants.APP_FOLDER), 
+                            path.join(target,constants.APP_FOLDER)
+                        );
         
-            // Copia la cartella sorgente nella cartella di destinazione
-            await fs.copy('../app', target);
-        
-            console.log('Copia completata con successo!');
+            console.log(`Folder ${constants.APP_FOLDER} and its content copied`);
             resolve();
           } catch (err) {
-            console.error('Errore durante la copia:', err);
+            console.error('Error during folder copy:', err);
             reject(err);
           }
     })

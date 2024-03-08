@@ -1,6 +1,6 @@
 {
   "name": "cap-utils",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Add some example files to your CAP project to use validators",
   "main": "bin/index.js",
   "scripts": {
