@@ -3,7 +3,7 @@ sap.ui.define([
 ], function (BaseController) {
 	"use strict";
 
-	return BaseController.extend("app.controller.NotFound", {
+	return BaseController.extend("frontend.controller.NotFound", {
         /**
          * 
         CONVENTIONS:

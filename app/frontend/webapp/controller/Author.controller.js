@@ -9,7 +9,7 @@ sap.ui.define([
 	 * Available Keys for the icon tab bar sections
 	 */
 	var _aValidTabKeys = ["All", "Bio"];
-	return BaseController.extend("app.controller.Author", {
+	return BaseController.extend("frontend.controller.Author", {
 		formatter: formatter,
 		onInit: function () {
 			var oRouter = this.getRouter();

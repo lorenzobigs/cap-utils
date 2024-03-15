@@ -5,7 +5,7 @@ sap.ui.define([
 ], function(Controller, History, UIComponent) {
 	"use strict";
 
-	return Controller.extend("app.controller.BaseController", {
+	return Controller.extend("frontend.controller.BaseController", {
 
 		getRouter : function () {
 			return UIComponent.getRouterFor(this);
