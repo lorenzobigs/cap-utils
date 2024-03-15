@@ -1,0 +1,27 @@
+{
+    "xsappname":"demo",
+    "tenant-mode": "dedicated",
+    "scopes": [
+      {
+        "name": "$XSAPPNAME.Basic_Scope",
+        "description": "Access to service",
+        "grant-as-authority-to-apps": [
+          "$XSAPPNAME(application, demo-auth-client-credentials)"
+        ]
+      }
+    ],
+    "attributes": [],
+    "role-templates": [ {
+      "name": "Demo_Basic_RT",
+      "description": "Access to service",
+      "scope-references": [
+        "$XSAPPNAME.Basic_Scope"
+      ]
+    }],
+    "oauth2-configuration": {
+      "system-attributes": [
+        "rolecollections"
+      ]
+    }
+  }
+  
