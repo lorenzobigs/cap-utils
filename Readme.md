@@ -1,4 +1,4 @@
-![cap-utils v1.0.6](https://img.shields.io/badge/cap%20utils-v1.0.4-green)
+![cap-utils v1.0.7](https://img.shields.io/badge/cap%20utils-v1.0.7-green)
 
 # Cap Utilities
 This npx tools provides a set of example files to explore SAP Cloud Application Programming features.
@@ -11,11 +11,20 @@ npx cap-utils
 
 Your project will be updated. Run
 ```sh
-cds watch
+cds watch 
 ```
 and use the **test.http** to run some test. You are very encouraged to explore and extend the example files!
 
 *If you don't know how to initialize a SAP CAP Project:* [Jumpstart guide in SAP CAPire](https://cap.cloud.sap/docs/get-started/in-a-nutshell#jumpstart)
+
+Keep in mind that from 1.0.7 version the service were enhanced with scope protection.
+To add a local mock user copy the **auth** section from package-for-cap.json into your package.json and run : 
+```sh
+cds watch --profile local
+```
+The local profile will inject a mock user with the required scope to consume the service. You can use the sam user to access to the webapp.
+
+
 
 ### Additional Modules
 In version 1.0.4 it has been added a feature to add extra modules to your app.
