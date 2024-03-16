@@ -37,10 +37,10 @@ let createdirs = function (target) {
         let dbdir = fs.existsSync(path.join(target, constants.DB_FOLDER));
         let srvdir = fs.existsSync(path.join(target, constants.SRV_FOLDER));
         if (dbdir) {
-            console.log(`Directory ${constants.DB_FOLDER} exist, skipping creation`);
+            console.log(`Directory ${constants.DB_FOLDER} exists, skipping creation`);
             let dbdatadir = fs.existsSync(path.join(target, constants.DB_FOLDER, constants.DB_DATA_FOLDER));
             if (dbdatadir) {
-                console.log(`Directory ${constants.DB_FOLDER}/${constants.DB_DATA_FOLDER} exist, skipping creation`);
+                console.log(`Directory ${constants.DB_FOLDER}/${constants.DB_DATA_FOLDER} exists, skipping creation`);
             } else {
                 console.log(`Creating directory ${constants.DB_FOLDER}/${constants.DB_DATA_FOLDER}...`)
                 await createDataDirectory(target);
@@ -53,7 +53,7 @@ let createdirs = function (target) {
         }
 
         if (srvdir) {
-            console.log(`Directory ${constants.SRV_FOLDER} exist, skipping creation`);
+            console.log(`Directory ${constants.SRV_FOLDER} exists, skipping creation`);
         } else {
             console.log(`Creating directory ${constants.SRV_FOLDER}`);
             await createSrvDirectory(target);

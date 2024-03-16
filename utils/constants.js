@@ -9,5 +9,7 @@ module.exports = Object.freeze({
     SERVICE_CDS : 'valid-service.cds',
     END_MESSAGE : 'to explore the usage of SAP CAP validators',
     APP_FOLDER : 'app',
-    PACKAGE_CAP : 'package-cap.json'
+    PACKAGE_CAP : 'package-cap.json',
+    XS_SECURITY : 'xs-security.json',
+    XS_SECURITY_CC : 'xs-security-cc.json'
 });

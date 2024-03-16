@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const dirs = require("../utils/directories");
 const files = require("../utils/files");
+const mta = require("../utils/mta-files");
 const ui5 = require("../utils/ui5");
 const constants = require("../utils/constants");
 const banner = require("node-banner");
@@ -12,7 +13,7 @@ let target = process.cwd();
 
 let promises = [];
 
-const _availableModules = ["ui5", "profiling"];
+const _availableModules = ["ui5","mta"];
 let _additionalModules = [];
 
 let printEndMessage = function () {
@@ -22,6 +23,9 @@ let printEndMessage = function () {
   );
 };
 
+/**
+ *  Check if there are additional modules to be added 
+ */
 let addModules = function () {
   return new Promise((resolve, reject) => {
     let add_args = yargs.argv.add;
@@ -40,16 +44,21 @@ let addModules = function () {
     resolve();
   });
 };
+
+//entry point
+
 let start = async function () {
   await banner("lorenzobigs", "Starting process...", "black");
   console.log("\n");
 
   await addModules();
+  await dirs.create(target);
 
+  //If additional modules are required add the function to the Promises array
   Promise.all([
-    dirs.create(target),
     files.create(target),
-    _additionalModules.includes('ui5') ? ui5.create(target) : Promise.resolve(null)
+    _additionalModules.includes('ui5') ? ui5.create(target) : Promise.resolve(null),
+    _additionalModules.includes('mta') ? mta.create(target) : Promise.resolve(null),
   ]).then(() => {
     printEndMessage();
   });

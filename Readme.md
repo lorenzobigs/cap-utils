@@ -1,4 +1,4 @@
-![cap-utils v1.0.7](https://img.shields.io/badge/cap%20utils-v1.0.7-green)
+![cap-utils v1.0.8](https://img.shields.io/badge/cap%20utils-v1.0.8-green)
 
 # Cap Utilities
 This npx tools provides a set of example files to explore SAP Cloud Application Programming features.
@@ -34,6 +34,8 @@ npx cap-utils --add <extra_module_1,extra_module_2...>
 
 Available modules:
   - **ui5** --> add a basic UI5 freestyle application in your project
+  - **mta** --> add sample files for mta based deployment on Cloud Foundry runtime
+
 
 
 ### Suggested Extension in your IDE

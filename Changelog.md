@@ -1,4 +1,3 @@
-
 ### New Sample Files Available
 In version 1.0.7 sample files for xsuaa,html5-repo,hana,mta based deployment were added:
 - valid-service.cds were changed to add scope protection on srv
