@@ -1,4 +1,4 @@
-![cap-utils v1.0.8](https://img.shields.io/badge/cap%20utils-v1.0.8-green)
+![cap-utils v1.0.10](https://img.shields.io/badge/cap%20utils-v1.0.10-green)
 
 # Cap Utilities
 This npx tools provides a set of example files to explore SAP Cloud Application Programming features.

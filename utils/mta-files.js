@@ -27,7 +27,7 @@ let writexssec = function (target) {
     if (!xssec) {
         return new Promise((resolve, reject) => {
             fs.readFile(path.join(__dirname, '..', constants.XS_SECURITY), 'utf-8', (err, data) => {
-                fs.writeFile(path.join(target, constants.XS_SECURITY), data, (err) => {
+                fs.writeFile(path.join(target, constants.XS_SECURITY), data.replace(/demo/g, project_name), (err) => {
                     if (err) console.error(err);
                     console.log(`/${constants.XS_SECURITY} created`)
                     resolve();
@@ -48,7 +48,7 @@ let writexssec_cc = function (target) {
     if (!xssec_cc) {
         return new Promise((resolve, reject) => {
             fs.readFile(path.join(__dirname, '..', constants.XS_SECURITY_CC), 'utf-8', (err, data) => {
-                fs.writeFile(path.join(target, constants.XS_SECURITY_CC), data, (err) => {
+                fs.writeFile(path.join(target, constants.XS_SECURITY_CC), data.replace(/demo/g, project_name), (err) => {
                     if (err) console.error(err);
                     console.log(`/${constants.XS_SECURITY_CC} created`)
                     resolve();
