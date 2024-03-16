@@ -11,5 +11,6 @@ module.exports = Object.freeze({
     APP_FOLDER : 'app',
     PACKAGE_CAP : 'package-cap.json',
     XS_SECURITY : 'xs-security.json',
-    XS_SECURITY_CC : 'xs-security-cc.json'
+    XS_SECURITY_CC : 'xs-security-cc.json',
+    MTA : 'mta.yaml'
 });

@@ -9,11 +9,9 @@ const constants = require("../utils/constants");
 const banner = require("node-banner");
 const yargs = require("yargs");
 
-let target = process.cwd();
-
-let promises = [];
-
+const target = process.cwd();
 const _availableModules = ["ui5","mta"];
+let promises = [];
 let _additionalModules = [];
 
 let printEndMessage = function () {
@@ -45,7 +43,6 @@ let addModules = function () {
   });
 };
 
-//entry point
 
 let start = async function () {
   await banner("lorenzobigs", "Starting process...", "black");
@@ -64,6 +61,7 @@ let start = async function () {
   });
 };
 
+//entry point
 start();
 
 module.exports = {
