@@ -22,14 +22,14 @@ To add a local mock user copy the **auth** section from package-for-cap.json int
 ```sh
 cds watch --profile local
 ```
-The local profile will inject a mock user with the required scope to consume the service. You can use the sam user to access to the webapp.
+The local profile will inject a mock user with the required scope to consume the service. You can use the same user to access to the webapp.
 
 
 
 ### Additional Modules
 In version 1.0.4 it has been added a feature to add extra modules to your app.
 ```sh
-npx cap-utils --add <extra_module_1,extra_module_2...>
+npx cap-utils --add <extra_module_1>,<extra_module_2>...
 ```
 
 Available modules:
