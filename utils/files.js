@@ -66,6 +66,20 @@ let writehttptest = function (target) {
 
 }
 
+
+let writepackage = function (target) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(path.join(__dirname, '..', constants.PACKAGE_CAP), 'utf-8', (err, data) => {
+            fs.writeFile(path.join(target, constants.PACKAGE_CAP), data, (err) => {
+                if (err) console.error(err);
+                console.log(`/${constants.PACKAGE_CAP} created`)
+                resolve();
+            })
+        })
+    })
+
+}
+
 let createFiles = async function (target) {
     return new Promise(async (resolve, reject) => {
         Promise.all([
@@ -73,7 +87,8 @@ let createFiles = async function (target) {
             writedatabooks(target),
             writedataauthors(target),
             writesrv(target),
-            writehttptest(target)
+            writehttptest(target),
+            writepackage(target)
         ]).then(() => {
             resolve()
         });
