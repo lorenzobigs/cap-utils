@@ -1,11 +1,18 @@
 const fs = require('fs-extra');
 const path = require('path');
+const pino = require('pino');
+const logger = pino({
+  transport: {
+    target: 'pino-pretty'
+  }
+});
+
 const constants = require('./constants');
 
 let createApp = async function (target) {
     return new Promise(async (resolve, reject) => {
         try {
-            console.log(`Copying ${constants.APP_FOLDER} folder and its content...`);
+            logger.info(`Copying ${constants.APP_FOLDER} folder and its content...`);
 
             await fs.ensureDir(path.join(target,constants.APP_FOLDER));
 
@@ -14,10 +21,10 @@ let createApp = async function (target) {
                             path.join(target,constants.APP_FOLDER)
                         );
         
-            console.log(`Folder ${constants.APP_FOLDER} and its content copied`);
+            logger.info(`Folder ${constants.APP_FOLDER} and its content copied`);
             resolve();
           } catch (err) {
-            console.error('Error during folder copy:', err);
+            logger.error('Error during folder copy:', err);
             reject(err);
           }
     })

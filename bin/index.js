@@ -1,14 +1,22 @@
 #! /usr/bin/env node
-const fs = require("fs");
-const path = require("path");
+//internal
 const dirs = require("../utils/directories");
 const files = require("../utils/files");
 const mta = require("../utils/mta-files");
 const ui5 = require("../utils/ui5");
 const profiling = require("../utils/profiling");
 const constants = require("../utils/constants");
-const banner = require("node-banner");
+//external libraries
+const fs = require("fs");
+const path = require("path");
+//const banner = require("node-banner");
 const yargs = require("yargs");
+const pino = require('pino')
+const logger = pino({
+  transport: {
+    target: 'pino-pretty'
+  },
+})
 
 const target = process.cwd();
 const _availableModules = ["ui5","mta","profiling"];
@@ -16,8 +24,7 @@ let promises = [];
 let _additionalModules = [];
 
 let printEndMessage = function () {
-  console.log("\n");
-  console.log(
+  logger.info(
     `Great! Use cds watch and ${constants.HTTP_TEST_FILE} ${constants.END_MESSAGE}`
   );
 };
@@ -32,7 +39,7 @@ let addModules = function () {
     if (add_args) {
       add_args.split(',').forEach((el) => {
         if (!_availableModules.includes(el)) {
-          console.log(`WARNING! Module ${el} is not available`);
+          logger.warn(`Module ${el} is not available`);
         } else {
             _additionalModules.push(el);
         }
@@ -46,8 +53,8 @@ let addModules = function () {
 
 
 let start = async function () {
-  await banner("lorenzobigs", "Starting process...", "black");
-  console.log("\n");
+  //await banner("on1zuka", "Starting process...", "black");
+  require('simple-banner').set("CAP Utilities - @on1zuka","",0);
 
   await addModules();
   await dirs.create(target);
@@ -59,7 +66,7 @@ let start = async function () {
     _additionalModules.includes('mta')        ? mta.create(target) : Promise.resolve(null),
     _additionalModules.includes('profiling')  ? profiling.create(target) : Promise.resolve(null),
   ]).then(() => {
-    printEndMessage();
+    setTimeout(printEndMessage,1000);
   });
 };
 

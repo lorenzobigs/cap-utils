@@ -1,5 +1,12 @@
 const fs = require('fs');
 const path = require('path');
+const pino = require('pino');
+const logger = pino({
+  transport: {
+    target: 'pino-pretty'
+  }
+});
+
 const constants = require('./constants');
 
 let writedatamodel = function (target) {
@@ -11,13 +18,13 @@ let writedatamodel = function (target) {
             fs.readFile(path.join(__dirname, '..', constants.DB_FOLDER, constants.DB_CDS), 'utf-8', (err, data) => {
                 fs.writeFile(path.join(target, constants.DB_FOLDER, constants.DB_CDS), data, (err) => {
                     if (err) console.error(err);
-                    console.log(`/${constants.DB_FOLDER}/${constants.DB_CDS} created`)
+                    logger.info(`/${constants.DB_FOLDER}/${constants.DB_CDS} created`)
                     resolve();
                 })
             })
         })
     } else {
-        console.log(`/${constants.DB_FOLDER}/${constants.DB_CDS} exists, skipping creation`)
+        logger.info(`/${constants.DB_FOLDER}/${constants.DB_CDS} exists, skipping creation`)
     }
    
 
@@ -32,13 +39,13 @@ let writedatabooks = function (target) {
             fs.readFile(path.join(__dirname, '..', constants.DB_FOLDER, constants.DB_DATA_FOLDER, constants.BOOKS_CSV), 'utf-8', (err, data) => {
                 fs.writeFile(path.join(target, constants.DB_FOLDER, constants.DB_DATA_FOLDER, constants.BOOKS_CSV), data, (err) => {
                     if (err) console.error(err);
-                    console.log(`/${constants.DB_FOLDER}/${constants.DB_DATA_FOLDER}/${constants.BOOKS_CSV} created`)
+                    logger.info(`/${constants.DB_FOLDER}/${constants.DB_DATA_FOLDER}/${constants.BOOKS_CSV} created`)
                     resolve();
                 })
             })
         })
     } else {
-        console.log(`/${constants.DB_FOLDER}/${constants.DB_DATA_FOLDER}/${constants.BOOKS_CSV} exists, skipping creation`)
+        logger.info(`/${constants.DB_FOLDER}/${constants.DB_DATA_FOLDER}/${constants.BOOKS_CSV} exists, skipping creation`)
     }
 
     
@@ -53,13 +60,13 @@ let writedataauthors = function (target) {
             fs.readFile(path.join(__dirname, '..', constants.DB_FOLDER, constants.DB_DATA_FOLDER, constants.AUTHORS_CSV), 'utf-8', (err, data) => {
                 fs.writeFile(path.join(target, constants.DB_FOLDER, constants.DB_DATA_FOLDER, constants.AUTHORS_CSV), data, (err) => {
                     if (err) console.error(err);
-                    console.log(`/${constants.DB_FOLDER}/${constants.DB_DATA_FOLDER}/${constants.AUTHORS_CSV} created`)
+                    logger.info(`/${constants.DB_FOLDER}/${constants.DB_DATA_FOLDER}/${constants.AUTHORS_CSV} created`)
                     resolve();
                 })
             })
         })
     } else {
-        console.log(`/${constants.DB_FOLDER}/${constants.DB_DATA_FOLDER}/${constants.AUTHORS_CSV} exists, skipping creation`)
+        logger.info(`/${constants.DB_FOLDER}/${constants.DB_DATA_FOLDER}/${constants.AUTHORS_CSV} exists, skipping creation`)
     }
 
     
@@ -74,13 +81,13 @@ let writesrv = function (target) {
             fs.readFile(path.join(__dirname, '..', constants.SRV_FOLDER, constants.SERVICE_CDS), 'utf-8', (err, data) => {
                 fs.writeFile(path.join(target, constants.SRV_FOLDER, constants.SERVICE_CDS), data, (err) => {
                     if (err) console.error(err);
-                    console.log(`/${constants.SRV_FOLDER}/${constants.SERVICE_CDS} created`)
+                    logger.info(`/${constants.SRV_FOLDER}/${constants.SERVICE_CDS} created`)
                     resolve();
                 })
             })
         })
     } else {
-        console.log(`/${constants.SRV_FOLDER}/${constants.SERVICE_CDS} exists, skipping creation`)
+        logger.info(`/${constants.SRV_FOLDER}/${constants.SERVICE_CDS} exists, skipping creation`)
     }
 
 
@@ -96,13 +103,13 @@ let writehttptest = function (target) {
             fs.readFile(path.join(__dirname, '..', constants.HTTP_TEST_FILE), 'utf-8', (err, data) => {
                 fs.writeFile(path.join(target, constants.HTTP_TEST_FILE), data, (err) => {
                     if (err) console.error(err);
-                    console.log(`/${constants.HTTP_TEST_FILE} created`)
+                    logger.info(`/${constants.HTTP_TEST_FILE} created`)
                     resolve();
                 })
             })
         })
     } else{
-        console.log(`/${constants.HTTP_TEST_FILE} exists, skipping creation`);
+        logger.info(`/${constants.HTTP_TEST_FILE} exists, skipping creation`);
     }
 
 

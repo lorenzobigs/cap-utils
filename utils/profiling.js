@@ -1,8 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 const editJsonFile = require("edit-json-file");
-const constants = require('./constants');
+const pino = require('pino');
+const logger = pino({
+  transport: {
+    target: 'pino-pretty'
+  }
+});
 
+const constants = require('./constants');
 
 let modifyPackage = function (target) {
     let package = fs.existsSync(path.join(target, constants.PACKAGE));
@@ -15,12 +21,12 @@ let modifyPackage = function (target) {
             getProfiles().then( (profiles) => {
                 targetPackage.set('cds.requires.[production]',profiles[0]);
                 targetPackage.set('cds.requires.[local]',profiles[1]);
-                console.log(`Profiles added in /${constants.PACKAGE}`);
+                logger.info(`Profiles added in /${constants.PACKAGE}`);
                 resolve();
             })
         })
     } else {
-        console.log(`[WARNING] - /${constants.PACKAGE} does not exist, please initialize a CAP Project`);
+        logger.warn(`/${constants.PACKAGE} does not exist, please initialize a CAP Project`);
     }
 
 }
