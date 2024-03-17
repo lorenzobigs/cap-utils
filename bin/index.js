@@ -5,12 +5,13 @@ const dirs = require("../utils/directories");
 const files = require("../utils/files");
 const mta = require("../utils/mta-files");
 const ui5 = require("../utils/ui5");
+const profiling = require("../utils/profiling");
 const constants = require("../utils/constants");
 const banner = require("node-banner");
 const yargs = require("yargs");
 
 const target = process.cwd();
-const _availableModules = ["ui5","mta"];
+const _availableModules = ["ui5","mta","profiling"];
 let promises = [];
 let _additionalModules = [];
 
@@ -54,8 +55,9 @@ let start = async function () {
   //If additional modules are required add the function to the Promises array
   Promise.all([
     files.create(target),
-    _additionalModules.includes('ui5') ? ui5.create(target) : Promise.resolve(null),
-    _additionalModules.includes('mta') ? mta.create(target) : Promise.resolve(null),
+    _additionalModules.includes('ui5')        ? ui5.create(target) : Promise.resolve(null),
+    _additionalModules.includes('mta')        ? mta.create(target) : Promise.resolve(null),
+    _additionalModules.includes('profiling')  ? profiling.create(target) : Promise.resolve(null),
   ]).then(() => {
     printEndMessage();
   });

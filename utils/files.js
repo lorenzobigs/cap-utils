@@ -109,28 +109,6 @@ let writehttptest = function (target) {
 }
 
 
-let writepackage = function (target) {
-
-    let package_cap = fs.existsSync(path.join(target, constants.PACKAGE_CAP));
-
-    if(!package_cap){
-        return new Promise((resolve, reject) => {
-            fs.readFile(path.join(__dirname, '..', constants.PACKAGE_CAP), 'utf-8', (err, data) => {
-                fs.writeFile(path.join(target, constants.PACKAGE_CAP), data, (err) => {
-                    if (err) console.error(err);
-                    console.log(`/${constants.PACKAGE_CAP} created`)
-                    resolve();
-                })
-            })
-        })
-    } else{
-        console.log(`/${constants.PACKAGE_CAP} exists, skipping creation`)
-    }
-
-}
-
-
-
 let createFiles = async function (target) {
     return new Promise(async (resolve, reject) => {
         Promise.all([
@@ -138,8 +116,7 @@ let createFiles = async function (target) {
             writedatabooks(target),
             writedataauthors(target),
             writesrv(target),
-            writehttptest(target),
-            writepackage(target)
+            writehttptest(target)
         ]).then(() => {
             resolve()
         });

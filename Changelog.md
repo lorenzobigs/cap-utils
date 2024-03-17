@@ -5,4 +5,5 @@ In version 1.0.7 sample files for xsuaa,html5-repo,hana,mta based deployment wer
 - xs-security.json: it will add scope base authorizations
 - xs-security-cc.json : it will add a client credential user with authorizations to consume srv
 - mta.yaml : enable the app for a Cloud Foundry deployment. 
-- package-for-cap.json: it is provided some examples to mock user for local development, features for production deployment. Copy the required section in your package.json
+
+From version 1.0.11 you can modify your package.json to add a cds profiling section.

@@ -7,9 +7,10 @@ module.exports = Object.freeze({
     AUTHORS_CSV : 'my.validexample-Authors.csv',
     HTTP_TEST_FILE : 'test.http',
     SERVICE_CDS : 'valid-service.cds',
-    END_MESSAGE : 'to explore the usage of SAP CAP validators',
+    END_MESSAGE : 'to explore the usage of SAP CAP',
     APP_FOLDER : 'app',
     PACKAGE_CAP : 'package-cap.json',
+    PACKAGE : 'package.json',
     XS_SECURITY : 'xs-security.json',
     XS_SECURITY_CC : 'xs-security-cc.json',
     MTA : 'mta.yaml'
