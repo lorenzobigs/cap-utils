@@ -3,15 +3,19 @@ module.exports = Object.freeze({
     DB_CDS : 'cap-valid-data-model.cds',
     DB_DATA_FOLDER : 'data',
     SRV_FOLDER : 'srv',
+    SRV_EXT_FOLDER : 'external',
     BOOKS_CSV : 'my.validexample-Books.csv',
     AUTHORS_CSV : 'my.validexample-Authors.csv',
     HTTP_TEST_FILE : 'test.http',
     SERVICE_CDS : 'valid-service.cds',
+    EXT_SERVICE_CDS : 'external-service.cds',
+    EXT_SERVICE_JS : 'external-service.js',
     END_MESSAGE : 'to explore the usage of SAP CAP',
     APP_FOLDER : 'app',
     PACKAGE_CAP : 'package-cap.json',
     PACKAGE : 'package.json',
     XS_SECURITY : 'xs-security.json',
     XS_SECURITY_CC : 'xs-security-cc.json',
-    MTA : 'mta.yaml'
+    MTA : 'mta.yaml',
+    SAP_HTTP_CLIENT : '@sap-cloud-sdk/http-client'
 });

@@ -4,12 +4,12 @@ const dirs = require("../utils/directories");
 const files = require("../utils/files");
 const mta = require("../utils/mta-files");
 const ui5 = require("../utils/ui5");
+const ext = require("../utils/external");
 const profiling = require("../utils/profiling");
 const constants = require("../utils/constants");
 //external libraries
 const fs = require("fs");
 const path = require("path");
-//const banner = require("node-banner");
 const yargs = require("yargs");
 const pino = require('pino')
 const logger = pino({
@@ -19,7 +19,7 @@ const logger = pino({
 })
 
 const target = process.cwd();
-const _availableModules = ["ui5","mta","profiling"];
+const _availableModules = ["ui5","mta","profiling","ext"];
 let promises = [];
 let _additionalModules = [];
 
@@ -53,7 +53,6 @@ let addModules = function () {
 
 
 let start = async function () {
-  //await banner("on1zuka", "Starting process...", "black");
   require('simple-banner').set("CAP Utilities - @on1zuka","",0);
 
   await addModules();
@@ -65,6 +64,7 @@ let start = async function () {
     _additionalModules.includes('ui5')        ? ui5.create(target) : Promise.resolve(null),
     _additionalModules.includes('mta')        ? mta.create(target) : Promise.resolve(null),
     _additionalModules.includes('profiling')  ? profiling.create(target) : Promise.resolve(null),
+    _additionalModules.includes('ext')        ? ext.create(target) : Promise.resolve(null),
   ]).then(() => {
     setTimeout(printEndMessage,1000);
   });

@@ -16,7 +16,7 @@ let modifyPackage = function (target) {
         autosave: true
     });
 
-    if (targetPackage.get('name')) {
+    if (package) {
         return new Promise((resolve, reject) => {
             getProfiles().then( (profiles) => {
                 targetPackage.set('cds.requires.[production]',profiles[0]);

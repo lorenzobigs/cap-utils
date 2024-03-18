@@ -20,6 +20,19 @@
     },
     "cds": {
       "requires": {
+        "nw": {
+          "kind": "odata",
+          "model": "srv/external/nw",
+          "credentials" : {
+            "[local]" :{
+              "url" : "https://services.odata.org/v4/northwind/northwind.svc/"
+            },
+            "[production]" :{
+              "destination" : "nw",
+              "forwardAuthToken": true
+            }
+          }
+        },
         "[production]": {
           "auth": "xsuaa",
           "db": "hana",
