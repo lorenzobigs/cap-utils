@@ -1,4 +1,4 @@
-![cap-utils v1.1.1](https://img.shields.io/badge/cap%20utils-v1.1.1-green)
+![cap-utils v1.2.0](https://img.shields.io/badge/cap%20utils-v1.2.0-green)
 
 # Cap Utilities
 This npx tools provides a set of example files to explore SAP Cloud Application Programming features.
@@ -37,6 +37,7 @@ Available modules:
   - **mta**        --> add sample files for mta based deployment on Cloud Foundry runtime
   - **profiling**  --> add a section in your package.json with cds profiles
   - **ext**        --> add a section in your package.json external odata source and sample files to implement it.
+  - **test**        --> add test sample files and scripts
 
 
 ### Suggested Extension in your IDE

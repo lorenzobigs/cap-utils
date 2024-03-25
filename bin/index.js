@@ -5,6 +5,7 @@ const files = require("../utils/files");
 const mta = require("../utils/mta-files");
 const ui5 = require("../utils/ui5");
 const ext = require("../utils/external");
+const test = require("../utils/test");
 const profiling = require("../utils/profiling");
 const constants = require("../utils/constants");
 //external libraries
@@ -19,7 +20,7 @@ const logger = pino({
 })
 
 const target = process.cwd();
-const _availableModules = ["ui5","mta","profiling","ext"];
+const _availableModules = ["ui5","mta","profiling","ext","test"];
 let promises = [];
 let _additionalModules = [];
 
@@ -65,6 +66,7 @@ let start = async function () {
     _additionalModules.includes('mta')        ? mta.create(target) : Promise.resolve(null),
     _additionalModules.includes('profiling')  ? profiling.create(target) : Promise.resolve(null),
     _additionalModules.includes('ext')        ? ext.create(target) : Promise.resolve(null),
+    _additionalModules.includes('test')        ? test.create(target) : Promise.resolve(null),
   ]).then(() => {
     setTimeout(printEndMessage,1000);
   });

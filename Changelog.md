@@ -1,3 +1,15 @@
+### 1.1.1 - Unit Tests Sample
+In version 1.2.0 there were added sample files to run unit tests on the application.
+Ensure to add the required devDependencies.
+The feature can be used with:
+```sh
+npx cap-utils --add test
+```
+Then run:
+```sh
+npm test
+```
+
 ### 1.1.1 - External Service Sample
 In version 1.1.1 there were added sample files to consume an external odata service exposed as entity of the internal catalog service.
 The feature can be used with:

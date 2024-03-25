@@ -18,7 +18,7 @@ let writenewmta = function (target) {
             fs.readFile(path.join(__dirname, '..', constants.MTA), 'utf-8', (err, data) => {
                 fs.writeFile(path.join(target, constants.MTA), data.replace(/demo/g, project_name), (err) => {
                     if (err) console.error(err);
-                    logger.info(`/${constants.MTA} created`)
+                    logger.info(`${constants.MTA_MODULE} - /${constants.MTA} created`)
                     resolve();
                 })
             })
@@ -36,13 +36,13 @@ let writexssec = function (target) {
             fs.readFile(path.join(__dirname, '..', constants.XS_SECURITY), 'utf-8', (err, data) => {
                 fs.writeFile(path.join(target, constants.XS_SECURITY), data.replace(/demo/g, project_name), (err) => {
                     if (err) console.error(err);
-                    logger.info(`/${constants.XS_SECURITY} created`)
+                    logger.info(`${constants.MTA_MODULE} - /${constants.XS_SECURITY} created`)
                     resolve();
                 })
             })
         })
     } else {
-        logger.info(`/${constants.XS_SECURITY} exists, skipping creation`)
+        logger.info(`${constants.MTA_MODULE} - /${constants.XS_SECURITY} exists, skipping creation`)
     }
 
 
@@ -57,13 +57,13 @@ let writexssec_cc = function (target) {
             fs.readFile(path.join(__dirname, '..', constants.XS_SECURITY_CC), 'utf-8', (err, data) => {
                 fs.writeFile(path.join(target, constants.XS_SECURITY_CC), data.replace(/demo/g, project_name), (err) => {
                     if (err) console.error(err);
-                    logger.info(`/${constants.XS_SECURITY_CC} created`)
+                    logger.info(`${constants.MTA_MODULE} - /${constants.XS_SECURITY_CC} created`)
                     resolve();
                 })
             })
         })
     } else {
-        logger.info(`/${constants.XS_SECURITY_CC} exists, skipping creation`)
+        logger.info(`${constants.MTA_MODULE} - /${constants.XS_SECURITY_CC} exists, skipping creation`)
     }
 
 

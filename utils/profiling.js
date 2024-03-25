@@ -21,12 +21,12 @@ let modifyPackage = function (target) {
             getProfiles().then( (profiles) => {
                 targetPackage.set('cds.requires.[production]',profiles[0]);
                 targetPackage.set('cds.requires.[local]',profiles[1]);
-                logger.info(`Profiles added in /${constants.PACKAGE}`);
+                logger.info(`${constants.PROFILING_MODULE} - Profiles added in /${constants.PACKAGE}`);
                 resolve();
             })
         })
     } else {
-        logger.warn(`/${constants.PACKAGE} does not exist, please initialize a CAP Project`);
+        logger.warn(`${constants.PROFILING_MODULE} - /${constants.PACKAGE} does not exist, please initialize a CAP Project`);
     }
 
 }
