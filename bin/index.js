@@ -20,8 +20,7 @@ const logger = pino({
 })
 
 const target = process.cwd();
-const _availableModules = ["ui5","mta","profiling","ext","test"];
-let promises = [];
+const _availableModules = ["ui5", "mta", "profiling", "ext", "test"];
 let _additionalModules = [];
 
 let printEndMessage = function () {
@@ -42,7 +41,7 @@ let addModules = function () {
         if (!_availableModules.includes(el)) {
           logger.warn(`Module ${el} is not available`);
         } else {
-            _additionalModules.push(el);
+          _additionalModules.push(el);
         }
       });
     } else {
@@ -54,22 +53,28 @@ let addModules = function () {
 
 
 let start = async function () {
-  require('simple-banner').set("CAP Utilities - @on1zuka","",0);
+  require('simple-banner').set("CAP Utilities - @on1zuka", "", 0);
 
-  await addModules();
-  await dirs.create(target);
+  try {
+    await addModules();
+    await dirs.create(target);
+    await files.create(target);
 
-  //If additional modules are required add the function to the Promises array
-  Promise.all([
-    files.create(target),
-    _additionalModules.includes('ui5')        ? ui5.create(target) : Promise.resolve(null),
-    _additionalModules.includes('mta')        ? mta.create(target) : Promise.resolve(null),
-    _additionalModules.includes('profiling')  ? profiling.create(target) : Promise.resolve(null),
-    _additionalModules.includes('ext')        ? ext.create(target) : Promise.resolve(null),
-    _additionalModules.includes('test')        ? test.create(target) : Promise.resolve(null),
-  ]).then(() => {
-    setTimeout(printEndMessage,1000);
-  });
+    //If additional modules are required add the function to the Promises array
+    await Promise.all([
+
+      _additionalModules.includes('ui5')        ? ui5.create(target) : Promise.resolve(null),
+      _additionalModules.includes('mta')        ? mta.create(target) : Promise.resolve(null),
+      _additionalModules.includes('profiling')  ? profiling.create(target) : Promise.resolve(null),
+      _additionalModules.includes('ext')        ? ext.create(target) : Promise.resolve(null),
+      _additionalModules.includes('test')       ? test.create(target) : Promise.resolve(null),
+    ]);
+  } catch (error) {
+    logger.error('Error creating modules', error);
+  }
+
+  printEndMessage();
+
 };
 
 //entry point

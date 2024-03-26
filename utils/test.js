@@ -45,7 +45,7 @@ let modifyPackage = function (target) {
             targetPackage.set('scripts.test', testScript);
             logger.info(`${constants.TEST_MODULE} - Test script added in /${constants.PACKAGE}`);
             logger.info(`${constants.TEST_MODULE} - Ensure that test devDependencies are installed`);
-            logger.info(`${constants.TEST_MODULE} - You can run ${constants.TEST_DEPENDENCIES}`);
+            logger.info(`${constants.TEST_MODULE} - You can run "${constants.TEST_DEPENDENCIES}"`);
             resolve();
         })
     } else {
