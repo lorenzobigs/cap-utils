@@ -14,4 +14,6 @@ service ValidService @(requires : [
         grant : ['READ,WRITE'],
         to    : 'Basic_Scope'
     }]) as projection on my.Authors;
+
+    @readonly entity UserAuthorizations as projection on my.UserAuthorizations;
 }

@@ -21,3 +21,9 @@ entity Authors : managed{
   books  : Association to many Books on books.author = $self;
 }
 
+@cds.persistence.skip
+entity UserAuthorizations {
+  key user : String;
+  isAdmin : Boolean;
+  isUser : Boolean;
+}
