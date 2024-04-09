@@ -94,6 +94,28 @@ let writesrv = function (target) {
 
 }
 
+let writesrvimpl = function (target) {
+
+    let srv_cds = fs.existsSync(path.join(target, constants.SRV_FOLDER, constants.SERVICE_CDS_IMPL));
+
+    if(!srv_cds){
+        return new Promise((resolve, reject) => {
+            fs.readFile(path.join(__dirname, '..', constants.SRV_FOLDER, constants.SERVICE_CDS_IMPL), 'utf-8', (err, data) => {
+                fs.writeFile(path.join(target, constants.SRV_FOLDER, constants.SERVICE_CDS_IMPL), data, (err) => {
+                    if (err) console.error(err);
+                    logger.info(`/${constants.SRV_FOLDER}/${constants.SERVICE_CDS_IMPL} created`)
+                    resolve();
+                })
+            })
+        })
+    } else {
+        logger.info(`/${constants.SRV_FOLDER}/${constants.SERVICE_CDS_IMPL} exists, skipping creation`)
+    }
+
+
+
+}
+
 let writehttptest = function (target) {
 
     let http_test = fs.existsSync(path.join(target, constants.HTTP_TEST_FILE));
@@ -123,6 +145,7 @@ let createFiles = async function (target) {
             writedatabooks(target),
             writedataauthors(target),
             writesrv(target),
+            writesrvimpl(target),
             writehttptest(target)
         ]).then(() => {
             resolve()

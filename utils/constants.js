@@ -9,6 +9,7 @@ module.exports = Object.freeze({
     AUTHORS_CSV : 'my.validexample-Authors.csv',
     HTTP_TEST_FILE : 'test.http',
     SERVICE_CDS : 'valid-service.cds',
+    SERVICE_CDS_IMPL : 'valid-service.js',
     EXT_SERVICE_CDS : 'external-service.cds',
     EXT_SERVICE_JS : 'external-service.js',
     END_MESSAGE : 'to explore the usage of SAP CAP',
