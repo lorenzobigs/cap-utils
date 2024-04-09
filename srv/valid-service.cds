@@ -6,12 +6,12 @@ service ValidService @(requires : [
     ])
 {
     entity Books @(restrict : [{
-        grant : ['READ,WRITE'],
+        grant : ['READ','WRITE'],
         to    : 'Basic_Scope'
     }]) as projection on my.Books;
     
     entity Authors  @(restrict : [{
-        grant : ['READ,WRITE'],
+        grant : ['READ','WRITE'],
         to    : 'Basic_Scope'
     }]) as projection on my.Authors;
 

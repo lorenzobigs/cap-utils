@@ -1,4 +1,7 @@
-### 1.1.1 - Unit Tests Sample
+### 1.2.2 - Service Restriction
+Typo fix in *service.cds on role definition for entity restrictions
+
+### 1.2.0 - Unit Tests Sample
 In version 1.2.0 there were added sample files to run unit tests on the application.
 Ensure to add the required devDependencies.
 The feature can be used with:

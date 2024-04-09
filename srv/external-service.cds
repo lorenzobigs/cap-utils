@@ -6,7 +6,7 @@ service ExternalService @(requires : [
     ])
 {
     entity Categories @(restrict : [{
-        grant : ['READ,WRITE'],
+        grant : ['READ','WRITE'],
         to    : 'Basic_Scope'
     }]) as projection on external.Categories;
     
