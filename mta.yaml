@@ -26,6 +26,7 @@ modules:
       - name: demo-destination
       - name: demo-db
       - name: demo-auth
+      - name: demo-logs
 
   - name: demo-destination-content
     type: com.sap.application.content
@@ -110,6 +111,11 @@ resources:
           instance:
             existing_destinations_policy: update
             destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: 'https://ui5.sap.com'
               - Name: demo-srv
                 URL: ~{srv-api/srv-url}
                 Authentication: NoAuthentication
@@ -151,3 +157,8 @@ resources:
       service-keys:
         - name: demo-client-credentials
       service-plan: application
+  - name: demo_logs
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: application-logs
+      service-plan: lite

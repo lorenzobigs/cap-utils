@@ -3,19 +3,38 @@
     "tenant-mode": "dedicated",
     "scopes": [
       {
-        "name": "$XSAPPNAME.Basic_Scope",
+        "name": "$XSAPPNAME.user",
         "description": "Access to service",
         "grant-as-authority-to-apps": [
           "$XSAPPNAME(application, demo-auth-client-credentials)"
         ]
+      },
+      {
+        "name": "$XSAPPNAME.admin",
+        "description": "Access to service",
+        "grant-as-authority-to-apps": [
+          "$XSAPPNAME(application, demo-auth-client-credentials)"
+        ]
+      },
+      {
+        "name": "$XSAPPNAME.access",
+        "description": "Access to UI"
       }
     ],
     "attributes": [],
     "role-templates": [ {
-      "name": "Demo_Basic_RT",
+      "name": "Demo_Service_RT",
       "description": "Access to service",
       "scope-references": [
-        "$XSAPPNAME.Basic_Scope"
+        "$XSAPPNAME.user",
+        "$XSAPPNAME.admin"
+      ]
+    },
+    {
+      "name": "Demo_UI_Access_RT",
+      "description": "Access to UI",
+      "scope-references": [
+        "$XSAPPNAME.access"
       ]
     }],
     "oauth2-configuration": {

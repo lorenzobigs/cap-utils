@@ -1,6 +1,6 @@
 
-### 1.2.4 - Refactoring
-Refactoring of external and profiling features. Main features are still the same.
+### 1.2.4/1.2.5 - Refactoring
+Refactoring of external,mta and profiling features. Main features are still the same.
 
 ### 1.2.3 - UI5
 Some changes on the presentation layer 
