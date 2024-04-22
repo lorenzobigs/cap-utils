@@ -43,7 +43,7 @@ let modifyPackage = function (target) {
             let sourcePackage = editJsonFile(path.join(__dirname, '..', constants.PACKAGE_CAP));
             let nwSource = await sourcePackage.get('cds.requires.nw');
             targetPackage.set('cds.requires.nw', nwSource);
-            logger.info(`${constants.EXT_MODULE} - External source nortwhind added in /${constants.PACKAGE}`);
+            logger.info(`${constants.EXT_MODULE} - External source TripService added in /${constants.PACKAGE}`);
             let sapHttpClient = await targetPackage.get(`dependencies.${constants.SAP_HTTP_CLIENT}`);
             if(!sapHttpClient) {
                 logger.warn(`${constants.EXT_MODULE} - ${constants.SAP_HTTP_CLIENT} dependency is missing. It is needed to consume external services`);

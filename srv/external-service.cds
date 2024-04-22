@@ -1,13 +1,13 @@
-using { nw as external } from './external/nw';
+using { trip as external } from './external/trip';
 
 service ExternalService @(requires : [
     'authenticated-user',
     'system-user'
     ])
 {
-    entity Categories @(restrict : [{
+    entity People @(restrict : [{
         grant : ['READ','WRITE'],
-        to    : 'Basic_Scope'
-    }]) as projection on external.Categories;
+        to    : 'admin'
+    }]) as projection on external.People;
     
 }

@@ -20,7 +20,8 @@ let modifyPackage = function (target) {
         return new Promise((resolve, reject) => {
             getProfiles().then( (profiles) => {
                 targetPackage.set('cds.requires.[production]',profiles[0]);
-                targetPackage.set('cds.requires.[local]',profiles[1]);
+                targetPackage.set('cds.requires.[development]',profiles[1]);
+                targetPackage.set('cds.requires.[hybrid]',profiles[2]);
                 logger.info(`${constants.PROFILING_MODULE} - Profiles added in /${constants.PACKAGE}`);
                 resolve();
             })
@@ -36,8 +37,9 @@ let getProfiles = function() {
         let profiles = [];
         let sourcePackage = editJsonFile(path.join(__dirname, '..', constants.PACKAGE_CAP));
         let prodProfile = await sourcePackage.get('cds.requires.[production]');
-        let localProfile = await sourcePackage.get('cds.requires.[local]');
-        profiles.push(prodProfile,localProfile);
+        let developmentProfile = await sourcePackage.get('cds.requires.[development]');
+        let hybridProfile = await sourcePackage.get('cds.requires.[hybrid]');
+        profiles.push(prodProfile,developmentProfile,hybridProfile);
         resolve(profiles);
     })
 }

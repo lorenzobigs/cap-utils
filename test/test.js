@@ -8,7 +8,7 @@ describe('CAP Utils Testing', function () {
      * hook when all tests are finished
      */
 
-    const { test, expect } = cds.test('serve', '--profile', 'local');
+    const { test, expect } = cds.test('serve', '--profile', 'development');
 
     let author_id;
 
@@ -30,7 +30,7 @@ describe('CAP Utils Testing', function () {
 
     it('should return a list of 5 books', async () => {
         const { data, status } = await test.get('/odata/v4/valid/Books',
-            { auth: { username: 'basic_user', password: 'pw' } });
+            { auth: { username: 'admin', password: 'pw' } });
         expect(data.value.length).to.eql(5);
         expect(status).to.eql(200);
     }),
@@ -38,7 +38,7 @@ describe('CAP Utils Testing', function () {
     it('should create an author', async () => {
         const { data, status } = await test.post('/odata/v4/valid/Authors',
             { name: "Friedrich Nietzsche", favorite: true },
-            { auth: { username: 'basic_user', password: 'pw' } }
+            { auth: { username: 'admin', password: 'pw' } }
         );
         author_id = data.ID;
         expect(status).to.eql(201);
@@ -46,7 +46,7 @@ describe('CAP Utils Testing', function () {
 
     it('should retrieve the author created', async () => {
         const { data, status } = await test.get(`/odata/v4/valid/Authors/${author_id}`,
-            { auth: { username: 'basic_user', password: 'pw' } }
+            { auth: { username: 'admin', password: 'pw' } }
         );
         expect(data.ID).to.eql(author_id);
         expect(status).to.eql(200);
@@ -54,14 +54,14 @@ describe('CAP Utils Testing', function () {
 
     it('should delete the author created', async () => {
         const { status } = await test.delete(`/odata/v4/valid/Authors/${author_id}`,
-            { auth: { username: 'basic_user', password: 'pw' } }
+            { auth: { username: 'admin', password: 'pw' } }
         );
         expect(status).to.eql(204);
     }),
 
     it('should consume external service', async () => {
-        const { data, status } = await test.get('/odata/v4/external/Categories',
-            { auth: { username: 'basic_user', password: 'pw' } });
+        const { data, status } = await test.get('/odata/v4/external/People',
+            { auth: { username: 'admin', password: 'pw' } });
         expect(status).to.eql(200);
     })
 })

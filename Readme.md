@@ -1,4 +1,4 @@
-![cap-utils v1.2.3](https://img.shields.io/badge/cap%20utils-v1.2.2-green)
+![cap-utils v1.2.4](https://img.shields.io/badge/cap%20utils-v1.2.2-green)
 
 # Cap Utilities
 This npx tools provides a set of example files to explore SAP Cloud Application Programming features.
@@ -20,9 +20,9 @@ and use the **test.http** to run some test. You are very encouraged to explore a
 Keep in mind that from 1.0.7 version the service were enhanced with scope protection.
 To add a local mock user copy the **auth** section from package-for-cap.json into your package.json and run : 
 ```sh
-cds watch --profile local
+cds watch --profile development
 ```
-The local profile will inject a mock user with the required scope to consume the service. You can use the same user to access to the webapp.
+The development profile will inject a mock user with the required scope to consume the service. You can use the same user to access to the webapp.
 
 
 

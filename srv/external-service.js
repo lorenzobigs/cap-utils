@@ -6,19 +6,19 @@ const cds = require('@sap/cds');
 */
 module.exports = async function () {
 
-    let nw = await cds.connect.to('nw');
+    let trip = await cds.connect.to('trip');
 
 
-    this.on('READ', 'Categories', async (req) => {
+    this.on('READ', 'People', async (req) => {
 
-        return await nw.run(req.query);
+        return await trip.run(req.query);
 
     });
 
 
-    this.after('READ', 'Categories', async (data, req) => {
+    this.after('READ', 'People', async (data, req) => {
         data.forEach(element => {
-            element.Description = element.Description + ' after read';
+            element.FirstName = element.FirstName + ' string added after read';
 
         });
     });

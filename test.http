@@ -1,7 +1,7 @@
 @server = http://localhost:4004
 @service = /odata/v4/valid
 
-@authorization-header = Basic basic_user pw
+@authorization-header = Basic admin pw
 
 ###
 # @name BooksQuery

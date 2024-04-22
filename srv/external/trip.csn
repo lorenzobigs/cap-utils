@@ -1,0 +1,652 @@
+{
+ "meta": {
+  "creator": "cds-dk 7.7.2"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "trip.GetNearestAirport": {
+   "kind": "function",
+   "@cds.external": true,
+   "params": {
+    "lat": {
+     "type": "cds.Double",
+     "notNull": true
+    },
+    "lon": {
+     "type": "cds.Double",
+     "notNull": true
+    }
+   },
+   "returns": {
+    "type": "trip.Airports",
+    "notNull": true
+   }
+  },
+  "trip.ResetDataSource": {
+   "kind": "action",
+   "@cds.external": true
+  },
+  "trip.PlanItem": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "PlanItemId": {
+     "key": true,
+     "@Core.Permissions": {
+      "#": "Read"
+     },
+     "type": "cds.Integer",
+     "notNull": true
+    },
+    "ConfirmationCode": {
+     "type": "cds.LargeString"
+    },
+    "StartsAt": {
+     "type": "cds.DateTime",
+     "@odata.Precision": 0,
+     "@odata.Type": "Edm.DateTimeOffset"
+    },
+    "EndsAt": {
+     "type": "cds.DateTime",
+     "@odata.Precision": 0,
+     "@odata.Type": "Edm.DateTimeOffset"
+    },
+    "Duration": {
+     "type": "cds.String",
+     "@odata.Type": "Edm.Duration"
+    }
+   },
+   "@open": true
+  },
+  "trip.PublicTransportation": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "includes": [
+    "trip.PlanItem"
+   ],
+   "elements": {
+    "SeatNumber": {
+     "type": "cds.LargeString"
+    }
+   },
+   "@open": true
+  },
+  "trip.Flight": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "includes": [
+    "trip.PublicTransportation"
+   ],
+   "elements": {
+    "FlightNumber": {
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "From": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "trip.Airports",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    },
+    "To": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "trip.Airports",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    },
+    "Airline": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "trip.Airlines",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    }
+   }
+  },
+  "trip.Event": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "includes": [
+    "trip.PlanItem"
+   ],
+   "elements": {
+    "Description": {
+     "type": "cds.LargeString"
+    },
+    "OccursAt": {
+     "type": "trip.EventLocation",
+     "notNull": true
+    }
+   },
+   "@open": true
+  },
+  "trip.Trip": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "TripId": {
+     "key": true,
+     "@Core.Permissions": {
+      "#": "Read"
+     },
+     "type": "cds.Integer",
+     "notNull": true
+    },
+    "ShareId": {
+     "type": "cds.UUID"
+    },
+    "Description": {
+     "type": "cds.LargeString"
+    },
+    "Name": {
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "Budget": {
+     "@Measures.ISOCurrency": "USD",
+     "@Measures.Scale": {
+      "$Cast": "2",
+      "$Type": "Edm.Int64"
+     },
+     "type": "cds.Double",
+     "@odata.Type": "Edm.Single",
+     "notNull": true
+    },
+    "StartsAt": {
+     "type": "cds.DateTime",
+     "@odata.Precision": 0,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "notNull": true
+    },
+    "EndsAt": {
+     "type": "cds.DateTime",
+     "@odata.Precision": 0,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "notNull": true
+    },
+    "Tags": {
+     "items": {
+      "type": "cds.LargeString",
+      "notNull": true
+     }
+    },
+    "Photos": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "trip.Photos",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "PlanItems": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "trip.PlanItem",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    }
+   },
+   "actions": {
+    "GetInvolvedPeople": {
+     "kind": "function",
+     "params": {
+      "trip": {
+       "type": "$self",
+       "notNull": true
+      }
+     },
+     "returns": {
+      "items": {
+       "type": "trip.People",
+       "notNull": true
+      }
+     }
+    }
+   }
+  },
+  "trip.City": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "CountryRegion": {
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "Name": {
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "Region": {
+     "type": "cds.LargeString",
+     "notNull": true
+    }
+   }
+  },
+  "trip.Location": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "Address": {
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "City": {
+     "type": "trip.City",
+     "notNull": true
+    }
+   },
+   "@open": true
+  },
+  "trip.EventLocation": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "BuildingInfo": {
+     "type": "cds.LargeString"
+    }
+   },
+   "includes": [
+    "trip.Location"
+   ],
+   "@open": true
+  },
+  "trip.AirportLocation": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "Loc": {
+     "type": "cds.String",
+     "@odata.Type": "Edm.GeographyPoint",
+     "notNull": true
+    }
+   },
+   "includes": [
+    "trip.Location"
+   ],
+   "@open": true
+  },
+  "trip.PersonGender": {
+   "kind": "type",
+   "@cds.external": true,
+   "enum": {
+    "Male": {
+     "val": 0
+    },
+    "Female": {
+     "val": 1
+    },
+    "Unknown": {
+     "val": 2
+    }
+   },
+   "type": "cds.Integer"
+  },
+  "trip": {
+   "kind": "service",
+   "@cds.external": true,
+   "@Core.DereferenceableIDs": true,
+   "@Core.ConventionalIDs": true,
+   "@Capabilities.ConformanceLevel.#": "Advanced",
+   "@Capabilities.SupportedFormats": [
+    "application/json;odata.metadata=full;IEEE754Compatible=false;odata.streaming=true",
+    "application/json;odata.metadata=minimal;IEEE754Compatible=false;odata.streaming=true",
+    "application/json;odata.metadata=none;IEEE754Compatible=false;odata.streaming=true"
+   ],
+   "@Capabilities.AsynchronousRequestsSupported": true,
+   "@Capabilities.BatchContinueOnErrorSupported": false,
+   "@Capabilities.FilterFunctions": [
+    "contains",
+    "endswith",
+    "startswith",
+    "length",
+    "indexof",
+    "substring",
+    "tolower",
+    "toupper",
+    "trim",
+    "concat",
+    "year",
+    "month",
+    "day",
+    "hour",
+    "minute",
+    "second",
+    "round",
+    "floor",
+    "ceiling",
+    "cast",
+    "isof"
+   ],
+   "doc": "TripPin service is a sample service for OData V4."
+  },
+  "trip.Photos": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "@Core.AcceptableMediaTypes": [
+    "image/jpeg"
+   ],
+   "elements": {
+    "Id": {
+     "key": true,
+     "@Core.Permissions": {
+      "#": "Read"
+     },
+     "type": "cds.Integer64",
+     "notNull": true
+    },
+    "Name": {
+     "type": "cds.LargeString"
+    },
+    "blob": {
+     "@Core.MediaType": "application/octet-stream",
+     "type": "cds.LargeBinary"
+    }
+   }
+  },
+  "trip.People": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "UserName": {
+     "key": true,
+     "@Core.Permissions": {
+      "#": "Read"
+     },
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "FirstName": {
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "LastName": {
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "Emails": {
+     "items": {
+      "type": "cds.LargeString"
+     }
+    },
+    "AddressInfo": {
+     "items": {
+      "type": "trip.Location"
+     }
+    },
+    "Gender": {
+     "type": "trip.PersonGender"
+    },
+    "Concurrency": {
+     "@Core.Computed": true,
+     "type": "cds.Integer64",
+     "notNull": true
+    },
+    "Friends": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "trip.People",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "Trips": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "trip.Trip",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "Photo": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "trip.Photos",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    }
+   },
+   "@open": true,
+   "actions": {
+    "ShareTrip": {
+     "kind": "action",
+     "params": {
+      "person": {
+       "type": "$self",
+       "notNull": true
+      },
+      "userName": {
+       "type": "cds.LargeString",
+       "notNull": true
+      },
+      "tripId": {
+       "type": "cds.Integer",
+       "notNull": true
+      }
+     }
+    },
+    "GetFavoriteAirline": {
+     "kind": "function",
+     "params": {
+      "person": {
+       "type": "$self",
+       "notNull": true
+      }
+     },
+     "returns": {
+      "type": "trip.Airlines",
+      "notNull": true
+     }
+    },
+    "GetFriendsTrips": {
+     "kind": "function",
+     "params": {
+      "person": {
+       "type": "$self",
+       "notNull": true
+      },
+      "userName": {
+       "type": "cds.LargeString",
+       "notNull": true
+      }
+     },
+     "returns": {
+      "items": {
+       "type": "trip.Trip",
+       "notNull": true
+      }
+     }
+    }
+   }
+  },
+  "trip.Airlines": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "AirlineCode": {
+     "key": true,
+     "@Core.Permissions": {
+      "#": "Read"
+     },
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "Name": {
+     "type": "cds.LargeString",
+     "notNull": true
+    }
+   }
+  },
+  "trip.Airports": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "IcaoCode": {
+     "key": true,
+     "@Core.Permissions": {
+      "#": "Read"
+     },
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "Name": {
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "IataCode": {
+     "@Core.Immutable": true,
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "Location": {
+     "type": "trip.AirportLocation",
+     "notNull": true
+    }
+   }
+  },
+  "trip.Me": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "UserName": {
+     "key": true,
+     "@Core.Permissions": {
+      "#": "Read"
+     },
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "FirstName": {
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "LastName": {
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "Emails": {
+     "items": {
+      "type": "cds.LargeString"
+     }
+    },
+    "AddressInfo": {
+     "items": {
+      "type": "trip.Location"
+     }
+    },
+    "Gender": {
+     "type": "trip.PersonGender"
+    },
+    "Concurrency": {
+     "@Core.Computed": true,
+     "type": "cds.Integer64",
+     "notNull": true
+    },
+    "Friends": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "trip.People",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "Trips": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "trip.Trip",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "Photo": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "trip.Photos",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    }
+   },
+   "@open": true,
+   "actions": {
+    "ShareTrip": {
+     "kind": "action",
+     "params": {
+      "person": {
+       "type": "$self",
+       "notNull": true
+      },
+      "userName": {
+       "type": "cds.LargeString",
+       "notNull": true
+      },
+      "tripId": {
+       "type": "cds.Integer",
+       "notNull": true
+      }
+     }
+    },
+    "GetFavoriteAirline": {
+     "kind": "function",
+     "params": {
+      "person": {
+       "type": "$self",
+       "notNull": true
+      }
+     },
+     "returns": {
+      "type": "trip.Airlines",
+      "notNull": true
+     }
+    },
+    "GetFriendsTrips": {
+     "kind": "function",
+     "params": {
+      "person": {
+       "type": "$self",
+       "notNull": true
+      },
+      "userName": {
+       "type": "cds.LargeString",
+       "notNull": true
+      }
+     },
+     "returns": {
+      "items": {
+       "type": "trip.Trip",
+       "notNull": true
+      }
+     }
+    }
+   },
+   "@odata.singleton": true
+  }
+ }
+}
