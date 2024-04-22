@@ -157,7 +157,7 @@ resources:
       service-keys:
         - name: demo-client-credentials
       service-plan: application
-  - name: demo_logs
+  - name: demo-logs
     type: org.cloudfoundry.managed-service
     parameters:
       service: application-logs
