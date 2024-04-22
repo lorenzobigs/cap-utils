@@ -28,7 +28,10 @@ sap.ui.define([
 			} else {
 				this.getRouter().navTo("RouteMaster", {}, true /*no history*/);
 			}
-		}
+		},
+		_getText : function (sTextId) {
+			return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText(sTextId);
+		},
 
 	});
 

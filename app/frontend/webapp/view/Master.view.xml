@@ -10,8 +10,13 @@
 
             <List
                 headerText="{i18n>listHeader}"
+                growing="true"
+                growingThreshold="10"
                 items="{
-			        path: '/Authors'
+			        path: '/Authors',
+					parameters: {
+									$count: true
+								}
 		            }"
             >
             <ObjectListItem

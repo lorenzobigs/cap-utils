@@ -1,3 +1,8 @@
+
+
+### 1.2.3 - UI5
+Some changes on the presentation layer 
+
 ### 1.2.2 - Service Restriction
 Typo fix in *service.cds on role definition for entity restrictions
 
