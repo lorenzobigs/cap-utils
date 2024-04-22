@@ -6,22 +6,25 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@sap-cloud-sdk/http-client": "^3.14.0",
     "@sap/cds": "^7",
-    "express": "^4",
+    "@sap/cds-hana": "^2",
     "@sap/xssec": "^3",
-    "@sap/cds-hana": "^2"
+    "express": "^4"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
-    "@sap/cds-dk": "^7",
     "chai": "^4.4.1",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
-    "mocha": "^10.3.0"
+    "mocha": "^10.4.0",
+    "@sap/cds-dk": "^7",
+    "rimraf": "^3.0.2"
   },
   "scripts": {
     "start": "cds-serve",
-    "test": "mocha --timeout 10000"
+    "test": "mocha --timeout 10000",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive"
   },
   "cds": {
     "requires": {
