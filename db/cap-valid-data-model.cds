@@ -21,6 +21,19 @@ entity Authors : managed{
   books  : Association to many Books on books.author = $self;
 }
 
+entity Events : cuid,managed {
+    time: DateTime;
+    name: String;
+    category: String;
+    status : String;
+    Artists : Composition of many EventsArtists on Artists.parent = $self;
+}
+
+entity EventsArtists : cuid,managed {
+    key parent : Association to Events;
+    name: String
+}
+
 @cds.persistence.skip
 entity UserAuthorizations {
   key user : String;
