@@ -1,4 +1,8 @@
 const cds = require('@sap/cds');
+const { randomUUID } = require('crypto');
+
+const { SELECT, INSERT, UPDATE, DELETE } = cds.ql;
+const {Events} = cds.entities;
 
 module.exports = async function () {
 
@@ -10,7 +14,6 @@ module.exports = async function () {
             isUser:  req.user.is('user')
         };
 
-        
     });
 
     this.on('add', async (req) => {
