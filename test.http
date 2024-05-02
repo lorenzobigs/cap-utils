@@ -180,3 +180,50 @@ Authorization: {{authorization-header}}
       "name":"Friedrich Nietzsche",
       "favorite": true
     }
+
+    
+### Should return unauthorized
+# @name addMessage
+
+POST {{server}}{{service}}/add
+Content-Type: application/json
+
+ {
+      "name" : "input name",
+      "category" :"music",
+      "artists" : [{
+        "name" : "input artist"
+      }]
+  }
+
+### Should return error
+# @name addMessage
+
+POST {{server}}{{service}}/add
+Content-Type: application/json
+Authorization: {{authorization-header}}
+
+ {
+      "name" : "input name",
+      "category" :"music"
+  }
+
+### Should be successfull
+# @name addMessage
+
+POST {{server}}{{service}}/add
+Content-Type: application/json
+Authorization: {{authorization-header}}
+
+ {
+    "time" : "2021-06-27T14:52:23Z",
+    "ID" : "111566ff-2d35-4514-a2e6-0890015dd9ba",
+    "name": "Firenze Rocks",
+    "category": "music",
+    "artists": [
+        {
+            "name": "Red Hot Chili Peppers"
+        }
+    ],
+    "status": "START"
+}
