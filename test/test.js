@@ -1,5 +1,6 @@
 const cds = require('@sap/cds')
-const assert = require('assert');
+const chai = require('chai');
+const expect = chai.expect;
 
 
 describe('CAP Utils Testing', function () {
@@ -8,7 +9,7 @@ describe('CAP Utils Testing', function () {
      * hook when all tests are finished
      */
 
-    const { test, expect } = cds.test('serve', '--profile', 'development');
+    const test = cds.test('serve', '--profile', 'development');
 
     let author_id;
 
